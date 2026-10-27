@@ -1,0 +1,34 @@
+name: sowesign_mobile_app
+description: "Application mobile étudiante pour l'émargement et la consultation des cours SoWeSign (iOS & Android)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Cryptographie AES et hachage
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  pointycastle: ^3.7.3
+  # Réseau HTTP et WebSockets
+  http: ^1.2.0
+  # Stockage sécurisé des identifiants et préférences
+  flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.2.2
+  # Gestion des dates et localisation
+  intl: ^0.19.0
+  # Icônes et UI moderne
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
