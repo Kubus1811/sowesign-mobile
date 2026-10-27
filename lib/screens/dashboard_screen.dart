@@ -115,10 +115,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  String _getFormattedToday() {
+    try {
+      return DateFormat('EEEE d MMMM yyyy', 'fr_FR').format(DateTime.now());
+    } catch (_) {
+      final now = DateTime.now();
+      const days = [
+        'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
+      ];
+      const months = [
+        'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+      ];
+      return '${days[now.weekday - 1]} ${now.day} ${months[now.month - 1]} ${now.year}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final todayFormatted =
-        DateFormat('EEEE d MMMM yyyy', 'fr_FR').format(DateTime.now());
+    final todayFormatted = _getFormattedToday();
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,

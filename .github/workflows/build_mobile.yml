@@ -37,6 +37,14 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           rm -rf ../temp_scaffold
           chmod +x android/gradlew
+          python3 -c "
+          p = 'android/app/src/main/AndroidManifest.xml'
+          with open(p, 'r') as f: c = f.read()
+          if 'android.permission.INTERNET' not in c:
+              c = c.replace('<application', '    <uses-permission android:name=\"android.permission.INTERNET\"/>\n    <application')
+              with open(p, 'w') as f: f.write(c)
+              print('INTERNET permission injected')
+          "
 
       - name: Install Dependencies
         run: flutter pub get
