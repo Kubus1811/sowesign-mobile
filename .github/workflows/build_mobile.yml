@@ -29,7 +29,7 @@ jobs:
           cache: true
 
       - name: Scaffold Native Android Platform
-        run: flutter create . --platforms=android --org com.sowesign.student
+        run: flutter create . --project-name sowesign_mobile_app --platforms=android --org com.sowesign.student
 
       - name: Install Dependencies
         run: flutter pub get
@@ -62,7 +62,7 @@ jobs:
           cache: true
 
       - name: Scaffold Native iOS Platform
-        run: flutter create . --platforms=ios --org com.sowesign.student
+        run: flutter create . --project-name sowesign_mobile_app --platforms=ios --org com.sowesign.student
 
       - name: Install Dependencies
         run: flutter pub get
