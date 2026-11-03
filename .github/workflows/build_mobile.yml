@@ -7,6 +7,9 @@ on:
     branches: [ "**" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-android:
     name: Build Android APK
@@ -104,3 +107,59 @@ jobs:
           name: SoWeSign-iOS-Release-IPA
           path: build/ios/iphoneos/SoWeSign-iOS.ipa
           if-no-files-found: warn
+
+  release:
+    name: Publish Direct GitHub Release
+    needs: [build-android, build-ios]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Android Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SoWeSign-Android-Release-APK
+          path: ./release_assets
+
+      - name: Download iOS Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SoWeSign-iOS-Release-IPA
+          path: ./release_assets
+
+      - name: Prepare Clean Release Files
+        run: |
+          cd ./release_assets
+          if [ -f "app-release.apk" ]; then
+            cp app-release.apk SoWeSign-Android.apk
+          fi
+          ls -la
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "SoWeSign Mobile Apps (Dernière version)"
+          body: |
+            ## Téléchargement direct des applications SoWeSign
+
+            - 🍎 **iPhone (iOS)** : [SoWeSign-iOS.ipa](https://github.com/${{ github.repository }}/releases/download/latest/SoWeSign-iOS.ipa)
+            - 🤖 **Android** : [SoWeSign-Android.apk](https://github.com/${{ github.repository }}/releases/download/latest/SoWeSign-Android.apk)
+
+            ---
+            ### 📱 Guide d'installation sur iPhone via Scarlet (Zéro PC, Zéro Câble) :
+            1. Ouvrez **Safari** sur votre iPhone et rendez-vous sur **[usescarlet.com](https://usescarlet.com)**.
+            2. Descendez et appuyez sur **Install** puis **Direct Install**.
+            3. Attendez quelques secondes puis appuyez sur **Ouvrir** / **Installer**.
+            4. Rendez-vous dans les réglages de votre iPhone : **Réglages > Général > VPN et gestion des appareils** et validez le certificat en appuyant sur **Faire confiance**.
+            5. Téléchargez le fichier **[SoWeSign-iOS.ipa](https://github.com/${{ github.repository }}/releases/download/latest/SoWeSign-iOS.ipa)** depuis Safari.
+            6. Ouvrez l'application **Scarlet**, appuyez sur l'icône d'importation (en haut à droite) et choisissez le fichier `SoWeSign-iOS.ipa`.
+            7. Appuyez sur **Installer** : l'application SoWeSign s'installe directement sur l'écran d'accueil de votre iPhone en natif !
+          files: |
+            release_assets/SoWeSign-iOS.ipa
+            release_assets/SoWeSign-Android.apk
+            release_assets/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

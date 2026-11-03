@@ -1,6 +1,50 @@
-# SoWeSign Étudiant — Application Mobile (Flutter)
+# SoWeSign Étudiant — Application Mobile Native (iOS & Android)
 
-Application mobile multiplateforme (**iOS & Android**) développée en Flutter / Dart 100% autonome. Elle permet aux étudiants de consulter en temps réel leur planning de cours du jour, de suivre les fenêtres d'émargement et d'émarger de manière fiable et sécurisée.
+Application mobile multiplateforme (**iOS & Android**) développée en Flutter / Dart 100% autonome. Elle permet aux étudiants de consulter en temps réel leur planning de cours du jour, de suivre les fenêtres d'émargement et d'émarger de manière fiable et sécurisée sans aucun serveur intermédiaire.
+
+---
+
+## 📲 Téléchargement Direct & Installation sans PC
+
+Les applications sont compilées automatiquement par les serveurs GitHub Actions et mises à disposition dans la section **Releases** :
+👉 **[Accéder aux Téléchargements des Applications (GitHub Releases)](https://github.com/Kubus1811/sowesign-mobile/releases/tag/latest)**
+
+| Plateforme | Fichier direct | Méthode d'installation sans PC |
+| :--- | :--- | :--- |
+| 🍎 **iPhone (iOS)** | [`SoWeSign-iOS.ipa`](https://github.com/Kubus1811/sowesign-mobile/releases/download/latest/SoWeSign-iOS.ipa) | **Direct via Scarlet** (Safari) en 2 minutes (aucun ordi, aucun câble) |
+| 🤖 **Android** | [`SoWeSign-Android.apk`](https://github.com/Kubus1811/sowesign-mobile/releases/download/latest/SoWeSign-Android.apk) | Téléchargement direct & ouverture du fichier `.apk` |
+
+---
+
+## 🍎 Guide d'Installation sur iPhone via Scarlet (Zéro PC, Zéro Câble)
+
+### Étape 1 : Installer Scarlet sur votre iPhone
+1. Ouvrez **Safari** sur votre iPhone et rendez-vous sur le site officiel : **[usescarlet.com](https://usescarlet.com)**.
+2. Descendez en bas de la page et touchez le bouton rouge **Install**.
+3. Choisissez **Direct Install** (attendez les 10 secondes du compte à rebours).
+4. Une invite iOS apparaît : appuyez sur **Ouvrir**, puis sur **Installer**.
+5. L'icône Scarlet apparaît sur l'écran d'accueil de votre iPhone.
+
+### Étape 2 : Valider le certificat dans les réglages iOS
+1. Sur votre iPhone, ouvrez **Réglages** > **Général** > **VPN et gestion des appareils**.
+2. Dans la section *App d'entreprise*, touchez le profil de certificat qui vient d'apparaître.
+3. Touchez **Faire confiance à ...** et confirmez.
+
+### Étape 3 : Installer l'application SoWeSign
+1. Téléchargez le fichier **[SoWeSign-iOS.ipa](https://github.com/Kubus1811/sowesign-mobile/releases/download/latest/SoWeSign-iOS.ipa)** depuis Safari sur votre iPhone.
+2. Ouvrez l'application **Scarlet**.
+3. Touchez l'icône d'importation (la flèche vers le bas ou le carré en haut à droite).
+4. Sélectionnez le fichier `SoWeSign-iOS.ipa` dans vos Téléchargements.
+5. Touchez **Installer** : l'application SoWeSign s'installe comme une véritable application native sur votre écran d'accueil !
+
+---
+
+## 🤖 Guide d'Installation sur Android
+
+1. Téléchargez directement **[SoWeSign-Android.apk](https://github.com/Kubus1811/sowesign-mobile/releases/download/latest/SoWeSign-Android.apk)** sur votre smartphone.
+2. Touchez le fichier dans vos Téléchargements.
+3. Appuyez sur **Installer** (autorisez l'installation d'applications inconnues si demandé).
+4. L'application est prête à l'emploi.
 
 ---
 
@@ -38,7 +82,7 @@ L'application ne dépend d'aucun serveur intermédiaire ni de script externe : t
 ```
 sowesign_mobile_app/
 ├── lib/
-│   ├── main.dart                      # Point d'entrée & Thème Material 3
+│   ├── main.dart                      # Point d'entrée, thème & gestionnaire d'erreur
 │   ├── models/
 │   │   ├── course.dart                # Modèle cours, fenêtres et statuts
 │   │   └── student_profile.dart       # Profil étudiant & persistance
@@ -58,45 +102,4 @@ sowesign_mobile_app/
 ├── test/
 │   └── crypto_service_test.dart       # Tests unitaires du chiffrement
 └── pubspec.yaml                       # Dépendances Flutter
-```
-
----
-
-## 🚀 Guide d'Installation et Exécution
-
-### Prérequis
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) (version `>= 3.0.0`)
-- **Pour iOS** : macOS avec Xcode installé et CocoaPods (`pod install`).
-- **Pour Android** : Android Studio avec SDK Android (API level >= 21).
-
-### 1. Installation des dépendances
-Dans le dossier du projet :
-```bash
-cd sowesign_mobile_app
-flutter pub get
-```
-
-### 2. Lancer les tests unitaires
-Pour vérifier la conformité des fonctions cryptographiques et du modèle de données :
-```bash
-flutter test
-```
-
-### 3. Exécuter sur iPhone (iOS)
-```bash
-# Sur simulateur iOS ou iPhone connecté par USB
-flutter run -d ios
-```
-
-### 4. Exécuter sur Android
-```bash
-# Sur émulateur ou smartphone Android en mode débogage USB
-flutter run -d android
-```
-
-### 5. Compiler l'APK Android autonome
-```bash
-flutter build apk --release
-# Le fichier APK généré se trouvera dans :
-# build/app/outputs/flutter-apk/app-release.apk
 ```
